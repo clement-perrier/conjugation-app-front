@@ -1,25 +1,25 @@
 import { Link } from 'react-router-dom';
 import HomeButton from '../../components/HomeButton/home-button';
+import conjugationsData from '../../data/conjugations.json';
+
 
 export default function Summary () {
+
+    const conjugations = conjugationsData.present;
 
     return (
         <>
             <HomeButton/>
             <h2>Let's learn the present of the three most used verbs in Spanish:</h2>
             <div>
-                <ConjugationTable 
-                    verb='Ir' 
-                    conjugations={['voy','vas','va','vamos','van']}
-                />
-                <ConjugationTable 
-                    verb='Tener' 
-                    conjugations={['tengo','tienes','tiene','tenemos','tienen']}
-                />
-                <ConjugationTable 
-                    verb='Ser' 
-                    conjugations={['soy','eres','es','somos','son']}
-                />
+                {
+                    conjugations.map(conjugation => 
+                        <ConjugationTable 
+                            verb={conjugation.verb} 
+                            conjugations={conjugation.conjugations}
+                        />
+                    )
+                }
             </div>
             <Link to='/'>
                 <button>Start training</button>
