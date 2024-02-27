@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "name": "Present"
+    },
+    {
+        "id": 1,
+        "name": "Past"
+    },
+    {
+        "id": 2,
+        "name": "Future"
+    }
+]

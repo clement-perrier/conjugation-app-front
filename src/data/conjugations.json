@@ -1,34 +1,92 @@
-{
-    "present": [
-      {
-        "verb": "Ir",
-        "conjugations": [
-          "voy",
-          "vas",
-          "va",
-          "vamos",
-          "van"
-        ]
-      },
-      {
-        "verb": "Tener",
-        "conjugations": [
-          "tengo",
-          "tienes",
-          "tiene",
-          "tenemos",
-          "tienen"
-        ]
-      },
-      {
-        "verb": "Ser",
-        "conjugations": [
-          "soy",
-          "eres",
-          "es",
-          "somos",
-          "son"
-        ]
-      }
-    ]
-}
+[
+  {
+    "id": 0,
+    "name": "Voy",
+    "pronoun": 0,
+    "conjugation_grid": 0
+  },
+  {
+    "id": 1,
+    "name": "Vas",
+    "pronoun": 1,
+    "conjugation_grid": 0
+  },
+  {
+    "id": 2,
+    "name": "Va",
+    "pronoun": 2,
+    "conjugation_grid": 0
+  },
+  {
+    "id": 3,
+    "name": "Vamos",
+    "pronoun": 3,
+    "conjugation_grid": 0
+  },
+  {
+    "id": 4,
+    "name": "Van",
+    "pronoun": 4,
+    "conjugation_grid": 0
+  },
+  {
+    "id": 5,
+    "name": "Tengo",
+    "pronoun": 0,
+    "conjugation_grid": 1
+  },
+  {
+    "id": 6,
+    "name": "Tienes",
+    "pronoun": 1,
+    "conjugation_grid": 1
+  },
+  {
+    "id": 7,
+    "name": "Tiene",
+    "pronoun": 2,
+    "conjugation_grid": 1
+  },
+  {
+    "id": 8,
+    "name": "Tenemos",
+    "pronoun": 3,
+    "conjugation_grid": 1
+  },
+  {
+    "id": 9,
+    "name": "Tienen",
+    "pronoun": 4,
+    "conjugation_grid": 1
+  },
+  {
+    "id": 10,
+    "name": "Soy",
+    "pronoun": 0,
+    "conjugation_grid": 2
+  },
+  {
+    "id": 11,
+    "name": "Eres",
+    "pronoun": 1,
+    "conjugation_grid": 2
+  },
+  {
+    "id": 12,
+    "name": "Es",
+    "pronoun": 2,
+    "conjugation_grid": 2
+  },
+  {
+    "id": 13,
+    "name": "Somos",
+    "pronoun": 3,
+    "conjugation_grid": 2
+  },
+  {
+    "id": 14,
+    "name": "Son",
+    "pronoun": 4,
+    "conjugation_grid": 2
+  }
+]

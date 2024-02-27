@@ -3,10 +3,8 @@ import './App.css';
 import {Routes, Route, Link} from 'react-router-dom';
 import Home from './pages/Home/home';
 import Summary from './pages/Summary/summary';
-import {GetConjugations} from './services/get-conjugations';
 
 function App() {
-  GetConjugations();
   return (
     <div className="App">
       <Routes>
