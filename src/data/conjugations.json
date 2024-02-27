@@ -1,0 +1,34 @@
+{
+    "present": [
+      {
+        "verb": "Ir",
+        "conjugations": [
+          "voy",
+          "vas",
+          "va",
+          "vamos",
+          "van"
+        ]
+      },
+      {
+        "verb": "Ir",
+        "conjugations": [
+          "tengo",
+          "tienes",
+          "tiene",
+          "tenemos",
+          "tienen"
+        ]
+      },
+      {
+        "verb": "Ir",
+        "conjugations": [
+          "soy",
+          "eres",
+          "es",
+          "somos",
+          "son"
+        ]
+      }
+    ]
+}
