@@ -1,20 +1,17 @@
-{
-    "test":
-    [
+[
     {
         "id": 0,
         "tense": 0,
         "verb": 0
     },
     {
-        "id": 0,
+        "id": 1,
         "tense": 0,
         "verb": 1
     },
     {
-        "id": 0,
+        "id": 2,
         "tense": 0,
         "verb": 2
     }
 ]
-}
