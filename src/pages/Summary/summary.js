@@ -4,35 +4,22 @@ import conjugationGridsData from '../../data/conjugation-grids.json'
 import verbsData from '../../data/verbs.json';
 import conjugationsData from '../../data/conjugations.json';
 import pronounsData from '../../data/pronouns.json';
+import { useContext } from 'react';
+import {ConjugationGridListContext} from '../../contexts/conjugation-grid-list-context';
 
 export default function Summary () {
 
-    // const conjugations = conjugationsData.present;
-
-   /*  const conjugationService = ConjugationService();
-    const conjugationGridsData = conjugationService.GetConjugationGrids();Data
-    console.log(conjugationGrids); */
-
-    /* const element = conjugationGrids.map(grid =>Data
-        <div>
-            {grid.verb}
-            {<ConjugationTable 
-                verb={grid.verb} 
-                conjugations={grid.conjugations}
-            />}
-        </div>
-    ) */
+    const conjugationGridList = useContext(ConjugationGridListContext);
 
     return (
         <>
             <HomeButton/>
             <h2>Let's learn the present of the three most used verbsData in Spanish:</h2>
             {
-                conjugationGridsData.map(grid =>
+                conjugationGridList.map(grid =>
                     <ConjugationGrid 
                         key={grid.id}
-                        verbId={grid.verb} 
-                        conjugationGridId={grid.id}
+                        grid={grid}
                     />
                 )
             }
@@ -44,22 +31,19 @@ export default function Summary () {
 
 }
 
-function ConjugationGrid({verbId, conjugationGridId}){
-
-    const verb = verbsData.find(verb => verb.id === verbId);
-    const conjugations = conjugationsData.filter(conjugation => conjugation.conjugation_grid === conjugationGridId)
+function ConjugationGrid({grid}){
 
     return (
         <table>
             <thead>
                 <tr>
-                    <th>{verb.name}</th>
+                    <th>{grid.verb}</th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    conjugations.map(conjugation => 
-                        <Conjugation key={conjugation.id} pronounId={conjugation.pronoun} conjugatedVerb={conjugation.name} />
+                    grid.conjugations.map(conjugation => 
+                        <Conjugation key={conjugation.id} conjugation={conjugation} />
                     )
                 }
             </tbody>
@@ -68,11 +52,10 @@ function ConjugationGrid({verbId, conjugationGridId}){
     )
 }
 
-function Conjugation ({pronounId, conjugatedVerb}){
-    const pronoun = pronounsData.find(pronoun => pronoun.id === pronounId);
+function Conjugation ({conjugation}){
     return (
         <tr>
-            <td>{pronoun.name} {conjugatedVerb}</td>
+            <td>{conjugation.pronoun} {conjugation.conjugatedVerb}</td>
         </tr>
     )
 }

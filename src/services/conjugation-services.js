@@ -19,6 +19,7 @@ export function ConjugationService(){
             const conjugations = TransformConjugations(filteredConjugationsData);
         
             conjugationGridList.push({
+              id: conjugationGrid.id,
               verb: verb,
               conjugations: conjugations
             })
@@ -50,6 +51,7 @@ export function ConjugationService(){
             const conugatedVerb = conjugation.name;
       
             newConjugation.push({
+              id: conjugation.id,
               pronoun: pronoun,
               conjugatedVerb: conugatedVerb
             })
