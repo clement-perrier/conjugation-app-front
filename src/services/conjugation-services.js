@@ -1,5 +1,6 @@
 import conjugationGridsData from '../data/conjugation-grids.json'
 import verbsData from '../data/verbs.json';
+import tensesData from '../data/tenses.json';
 import conjugationsData from '../data/conjugations.json';
 import pronounsData from '../data/pronouns.json';
 
@@ -28,9 +29,32 @@ export function ConjugationService(){
 
           return conjugationGridList;
     }
+
+    function GetQuestions(){
+        let questions = [];
+        conjugationGridsData.forEach(grid => {
+            const verb = GetVerb(grid.verb);
+            const tense = GetTense(grid.tense);
+            const conjugations = GetConjugationsByGrid(grid.id);
+            conjugations.forEach(conjugation => {
+                const pronoun = GetPronoun(conjugation.pronoun);
+                questions.push({
+                    tense: tense,
+                    verb: verb,
+                    pronoun: pronoun,
+                    answer: conjugation.name
+                })
+            })
+        });
+        return questions;
+    }
     
     function GetVerb(id){
         return verbsData.find(verb => verb.id === id).name;
+    }
+
+    function GetTense(id){
+        return tensesData.find(tense => tense.id === id).name;
     }
 
     function GetPronoun(id){
@@ -62,7 +86,8 @@ export function ConjugationService(){
     }
 
     return {
-        GetConjugationGrids: GetConjugationGrids
+        GetConjugationGrids: GetConjugationGrids,
+        GetQuestions: GetQuestions
     }
     
 }

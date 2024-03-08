@@ -1,9 +1,5 @@
 import { Link } from 'react-router-dom';
 import HomeButton from '../../components/HomeButton/home-button';
-import conjugationGridsData from '../../data/conjugation-grids.json'
-import verbsData from '../../data/verbs.json';
-import conjugationsData from '../../data/conjugations.json';
-import pronounsData from '../../data/pronouns.json';
 import { useContext } from 'react';
 import {ConjugationGridListContext} from '../../contexts/conjugation-grid-list-context';
 
@@ -23,7 +19,7 @@ export default function Summary () {
                     />
                 )
             }
-            <Link to='/'>
+            <Link to='/training'>
                 <button>Start training</button>
             </Link>
         </>
