@@ -10,7 +10,7 @@ export default function Summary () {
     return (
         <>
             <HomeButton/>
-            <h2>Let's learn the present of the three most used verbsData in Spanish:</h2>
+            <h2>Let's learn the present of the three most used verbs in Spanish:</h2>
             {
                 conjugationGridList.map(grid =>
                     <ConjugationGrid 

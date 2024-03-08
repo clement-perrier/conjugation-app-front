@@ -3,7 +3,7 @@ import verbsData from '../data/verbs.json';
 import tensesData from '../data/tenses.json';
 import conjugationsData from '../data/conjugations.json';
 import pronounsData from '../data/pronouns.json';
-
+import ShuffleArray from '../utils/shuffle';
 
 export function ConjugationService(){
 
@@ -39,14 +39,16 @@ export function ConjugationService(){
             conjugations.forEach(conjugation => {
                 const pronoun = GetPronoun(conjugation.pronoun);
                 questions.push({
+                    id: conjugation.id,
                     tense: tense,
                     verb: verb,
                     pronoun: pronoun,
-                    answer: conjugation.name
+                    answer: conjugation.name,
+                    givenAnswer: ''
                 })
             })
         });
-        return questions;
+        return ShuffleArray(questions);
     }
     
     function GetVerb(id){
