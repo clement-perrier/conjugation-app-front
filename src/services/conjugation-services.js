@@ -1,11 +1,19 @@
-import conjugationGridsData from '../data/conjugation-grids.json'
+import conjugationGridsData from '../data/conjugation-grids.js'
 import verbsData from '../data/verbs.json';
 import tensesData from '../data/tenses.json';
 import conjugationsData from '../data/conjugations.json';
 import pronounsData from '../data/pronouns.json';
 import ShuffleArray from '../utils/shuffle';
+import repetitionBatchesData from '../data/repetition-batches.js';
 
 export function ConjugationService(){
+
+    function GetRepetitionBatchList(){
+        return repetitionBatchesData;
+        /* repetitionBatchesData.forEach(repetitionBatch => {
+
+        }) */
+    }
 
     function GetConjugationGrids(){
 
@@ -89,7 +97,8 @@ export function ConjugationService(){
 
     return {
         GetConjugationGrids: GetConjugationGrids,
-        GetQuestions: GetQuestions
+        GetQuestions: GetQuestions,
+        GetRepetitionBatchList: GetRepetitionBatchList
     }
     
 }

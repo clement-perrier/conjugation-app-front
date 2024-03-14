@@ -1,4 +1,4 @@
-[
+const conjugationGrids = [
     {
         "id": 0,
         "tense": 0,
@@ -15,3 +15,4 @@
         "verb": 2
     }
 ]
+export default conjugationGrids;

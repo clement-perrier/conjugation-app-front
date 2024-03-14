@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import HomeButton from '../../components/HomeButton/home-button';
+import HomeButton from '../components/HomeButton/home-button';
 import { useContext } from 'react';
-import {ConjugationGridListContext} from '../../contexts/conjugation-grid-list-context';
+import {ConjugationGridListContext} from '../contexts/conjugation-grid-list-context';
 
 export default function Summary () {
 
