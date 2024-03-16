@@ -8,11 +8,76 @@ import repetitionBatchesData from '../data/repetition-batches.js';
 
 export function ConjugationService(){
 
-    function GetRepetitionBatchList(){
-        return repetitionBatchesData;
-        /* repetitionBatchesData.forEach(repetitionBatch => {
+    function GetRepetitionDates(){
 
-        }) */
+        const conjugationGrids = GetConjugationGrids();
+
+        const offset = (new Date()).getTimezoneOffset() * 60000;
+
+        const todayDate = (new Date(Date.now() - offset));
+        
+        const tomorrowDate = new Date(todayDate);
+        tomorrowDate.setDate(todayDate.getDate() + 1);
+
+        const today = todayDate.toISOString().split('T')[0];
+        const tomorrow = tomorrowDate.toISOString().split('T')[0]; 
+
+        const repetitionBatches = repetitionBatchesData.map(repetitionBatch => {
+            if (new Date(repetitionBatch.date - offset).getMonth() === todayDate.getMonth()){
+                repetitionBatch.month = 'This month';
+            } else {
+                repetitionBatch.month = new Date(repetitionBatch.date + " 00:00:00").toLocaleString('default', { month: 'long' });
+            }
+            switch (repetitionBatch.date) {
+                case today:
+                    repetitionBatch.day = 'Today';
+                    break;
+                case tomorrow:
+                    repetitionBatch.day = 'Tomorrow';
+                    break;
+                default:
+                    const day = new Date(repetitionBatch.date + " 00:00:00").toLocaleString('default', { weekday: 'long', day:  'numeric'});
+                    const daySplitted = day.split(' ');
+                    const figure = daySplitted[0][1] >= 0 ? daySplitted[0][1] : daySplitted[0];
+                    let ordinalIndicator = 'th';
+                    switch (figure){
+                        case '1':
+                            ordinalIndicator = 'st';
+                            break
+                        case '2':
+                            ordinalIndicator = 'nd';
+                            break;
+                        case '3':
+                            ordinalIndicator = 'rd';
+                            break;
+                        default:
+                    }
+                    repetitionBatch.day = daySplitted[1] + ' ' + daySplitted[0] + ordinalIndicator ;
+                    break;
+            }
+            repetitionBatch.conjugationGrids = 
+                conjugationGrids.filter(conjugationGrid => conjugationGrid.batch === repetitionBatch.id)
+            return repetitionBatch;
+        })
+
+        const repetitionBatchesByDays = [];
+        Object.entries(Object.groupBy(repetitionBatches, ({date}) => date)).forEach(repetitionsByDay => {
+            repetitionBatchesByDays.push({
+                day: repetitionsByDay[0],
+                batches: repetitionsByDay[1],
+                month: new Date(repetitionsByDay[0] + " 00:00:00").toLocaleString('default', { month: 'long' })
+            })
+        })
+
+        const repetitionBatchesByMonths = [];
+        Object.entries(Object.groupBy(repetitionBatchesByDays, ({month}) => month)).forEach(repetitionsByMonth => {
+            repetitionBatchesByMonths.push({
+                month: repetitionsByMonth[0],
+                days: repetitionsByMonth[1]
+            })
+        })
+
+        return repetitionBatchesByMonths;
     }
 
     function GetConjugationGrids(){
@@ -29,6 +94,7 @@ export function ConjugationService(){
         
             conjugationGridList.push({
               id: conjugationGrid.id,
+              batch: conjugationGrid.batch,
               verb: verb,
               conjugations: conjugations
             })
@@ -98,7 +164,7 @@ export function ConjugationService(){
     return {
         GetConjugationGrids: GetConjugationGrids,
         GetQuestions: GetQuestions,
-        GetRepetitionBatchList: GetRepetitionBatchList
+        GetRepetitionDates: GetRepetitionDates
     }
     
 }

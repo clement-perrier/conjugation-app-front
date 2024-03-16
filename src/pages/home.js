@@ -1,23 +1,23 @@
 import {Link} from 'react-router-dom';
 import { useContext } from 'react';
-import { RepetitionBatchListContext } from '../contexts/repetition-batch-list-context';
+import { RepetitionDatesContext } from '../contexts/repetition-dates-context';
 
 export default function Home (){
     
-    const {repetitionBatchList, setRepetitionBatchList} = useContext(RepetitionBatchListContext);
+    const {repetitionDates, setRepetitionDates} = useContext(RepetitionDatesContext);
 
-    const repetitionBatchListElements = repetitionBatchList.length > 0 
-    ? repetitionBatchList.map(repetitionBatch => (
-        <li key={repetitionBatch.id}>
-            {repetitionBatch.date}
+    const repetitionDateElements = repetitionDates.length > 0 
+    ? repetitionDates.map(repetitionDate => (
+        <li key={repetitionDate.id}>
+            {repetitionDate.date}
         </li>
     ))
     : <div>None</div>;
 
     return(
         <>
-            {repetitionBatchListElements}
-            <button className="btn btn-blue" onClick={() => setRepetitionBatchList([])}>test</button>
+            {repetitionDateElements}
+            <button className="btn btn-blue" onClick={() => setRepetitionDates([])}>test</button>
             <Link to="/summary">
                 <button className='btn btn-blue'>Start</button>
             </Link>
