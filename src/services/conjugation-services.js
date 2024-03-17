@@ -8,57 +8,78 @@ import repetitionBatchesData from '../data/repetition-batches.js';
 
 export function ConjugationService(){
 
+    function GetRepetitionDates2() {
+        const conjugationGrids = GetConjugationGrids();
+        const offset = (new Date()).getTimezoneOffset() * 60000;
+        const todayDate = new Date(Date.now() - offset);
+    
+        const test = repetitionBatchesData.map(repetitionBatch => {
+            const batchDate = new Date(new Date (repetitionBatch.date).getTime() - offset);
+            const month = (batchDate.getMonth() === todayDate.getMonth()) ? 'This month' : batchDate.toLocaleString('default', { month: 'long' });
+    
+            let day;
+            if (batchDate.toISOString().split('T')[0] === todayDate.toISOString().split('T')[0]) {
+                day = 'Today';
+            } else if (batchDate.getDate() - todayDate.getDate() === 1) {
+                day = 'Tomorrow';
+            } else {
+                const dayFormatted = batchDate.toLocaleString('default', { weekday: 'long', day: 'numeric' });
+                day = `${dayFormatted.split(' ')[1]} ${dayFormatted.split(' ')[0]}${(dayFormatted.split(' ')[0][1] >= 0) ? 'th' : (dayFormatted.split(' ')[0] === '1') ? 'st' : (dayFormatted.split(' ')[0] === '2') ? 'nd' : (dayFormatted.split(' ')[0] === '3') ? 'rd' : 'th'}`;
+            }
+    
+            return {
+                month,
+                day,
+                conjugationGrids: conjugationGrids.filter(conjugationGrid => conjugationGrid.batch === repetitionBatch.id)
+            };
+        }).reduce((acc, repetitionBatch) => {
+            const key = repetitionBatch.month;
+            acc[key] = acc[key] || [];
+            acc[key].push({ day: repetitionBatch.day, conjugationGrids: repetitionBatch.conjugationGrids });
+            return acc;
+        }, {});
+
+        return test
+    }
+    
+
     function GetRepetitionDates(){
 
         const conjugationGrids = GetConjugationGrids();
 
         const offset = (new Date()).getTimezoneOffset() * 60000;
-
         const todayDate = (new Date(Date.now() - offset));
-        
-        const tomorrowDate = new Date(todayDate);
-        tomorrowDate.setDate(todayDate.getDate() + 1);
-
-        const today = todayDate.toISOString().split('T')[0];
-        const tomorrow = tomorrowDate.toISOString().split('T')[0]; 
 
         const repetitionBatches = repetitionBatchesData.map(repetitionBatch => {
-            if (new Date(repetitionBatch.date - offset).getMonth() === todayDate.getMonth()){
-                repetitionBatch.month = 'This month';
+            const batchDate = new Date(new Date (repetitionBatch.date).getTime() - offset);
+            repetitionBatch.month = batchDate.getMonth() === todayDate.getMonth() ? 'This month' : batchDate.toLocaleString('default', { month: 'long' });
+
+            if(batchDate.getDate() === todayDate.getDate()){
+                repetitionBatch.day = 'Today';
+            } else if (batchDate.getDate() - todayDate.getDate() === 1){
+                repetitionBatch.day = 'Tomorrow';
             } else {
-                repetitionBatch.month = new Date(repetitionBatch.date + " 00:00:00").toLocaleString('default', { month: 'long' });
-            }
-            switch (repetitionBatch.date) {
-                case today:
-                    repetitionBatch.day = 'Today';
-                    break;
-                case tomorrow:
-                    repetitionBatch.day = 'Tomorrow';
-                    break;
-                default:
-                    const day = new Date(repetitionBatch.date + " 00:00:00").toLocaleString('default', { weekday: 'long', day:  'numeric'});
-                    const daySplitted = day.split(' ');
-                    const figure = daySplitted[0][1] >= 0 ? daySplitted[0][1] : daySplitted[0];
-                    let ordinalIndicator = 'th';
-                    switch (figure){
-                        case '1':
-                            ordinalIndicator = 'st';
-                            break
-                        case '2':
-                            ordinalIndicator = 'nd';
-                            break;
-                        case '3':
-                            ordinalIndicator = 'rd';
-                            break;
-                        default:
+                const dayFormatted = batchDate.toLocaleString('default', { weekday: 'long', day: 'numeric' });
+                const dayFormattedSplitted = dayFormatted.split(' ');
+                const dayNumber = dayFormattedSplitted[0];
+                let ordinal = 'th';
+                if (dayNumber <= 3 && dayNumber >= 21) {
+                    switch (dayNumber % 10) {
+                        case 1:  ordinal="st"; break;
+                        case 2:  ordinal= "nd"; break;
+                        case 3:  ordinal= "rd"; break;
+                        default: ordinal= "th";
                     }
-                    repetitionBatch.day = daySplitted[1] + ' ' + daySplitted[0] + ordinalIndicator ;
-                    break;
+                } 
+                repetitionBatch.day = `${dayFormatted[1]} ${dayFormatted[0]}${ordinal}`;
             }
-            repetitionBatch.conjugationGrids = 
-                conjugationGrids.filter(conjugationGrid => conjugationGrid.batch === repetitionBatch.id)
+
+            repetitionBatch.conjugationGrids = conjugationGrids.filter(conjugationGrid => conjugationGrid.batch === repetitionBatch.id);
+
             return repetitionBatch;
         })
+
+        repetitionBatches.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         const repetitionBatchesByDays = [];
         Object.entries(Object.groupBy(repetitionBatches, ({date}) => date)).forEach(repetitionsByDay => {

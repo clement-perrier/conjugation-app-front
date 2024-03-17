@@ -1,5 +1,10 @@
 const repetitionBatches = [
     {
+        "id": 6,
+        "day_number": 30,
+        "date": "2024-04-17"
+    },
+    {
         "id": 0,
         "day_number": 1,
         "date": "2024-03-14"
@@ -28,11 +33,6 @@ const repetitionBatches = [
         "id": 5,
         "day_number": 15,
         "date": "2024-04-01"
-    },
-    {
-        "id": 6,
-        "day_number": 30,
-        "date": "2024-04-17"
     }
 ]
 export default repetitionBatches;
