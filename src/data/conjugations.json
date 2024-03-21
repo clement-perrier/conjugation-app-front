@@ -88,5 +88,35 @@
     "name": "Son",
     "pronoun": 4,
     "conjugation_grid": 2
+  },
+  {
+    "id": 15,
+    "name": "Fui",
+    "pronoun": 0,
+    "conjugation_grid": 3
+  },
+  {
+    "id": 16,
+    "name": "Fuiste",
+    "pronoun": 1,
+    "conjugation_grid": 3
+  },
+  {
+    "id": 17,
+    "name": "Fue",
+    "pronoun": 2,
+    "conjugation_grid": 3
+  },
+  {
+    "id": 18,
+    "name": "Fuimos",
+    "pronoun": 3,
+    "conjugation_grid": 3
+  },
+  {
+    "id": 19,
+    "name": "Fueron",
+    "pronoun": 4,
+    "conjugation_grid": 3
   }
 ]

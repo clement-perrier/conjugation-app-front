@@ -51,7 +51,7 @@ export function ConjugationService(){
         const todayDate = (new Date(Date.now() - offset));
 
         const repetitionBatches = repetitionBatchesData.map(repetitionBatch => {
-            const batchDate = new Date(new Date (repetitionBatch.date).getTime() - offset);
+            const batchDate = new Date(new Date (repetitionBatch.date).getTime() + offset);
             repetitionBatch.month = batchDate.getMonth() === todayDate.getMonth() ? 'This month' : batchDate.toLocaleString('default', { month: 'long' });
 
             if(batchDate.getDate() === todayDate.getDate()){
@@ -63,7 +63,7 @@ export function ConjugationService(){
                 const dayFormattedSplitted = dayFormatted.split(' ');
                 const dayNumber = dayFormattedSplitted[0];
                 let ordinal = 'th';
-                if (dayNumber <= 3 && dayNumber >= 21) {
+                if (dayNumber <= 3 || dayNumber >= 21) {
                     switch (dayNumber % 10) {
                         case 1:  ordinal="st"; break;
                         case 2:  ordinal= "nd"; break;
@@ -71,7 +71,9 @@ export function ConjugationService(){
                         default: ordinal= "th";
                     }
                 } 
-                repetitionBatch.day = `${dayFormatted[1]} ${dayFormatted[0]}${ordinal}`;
+                repetitionBatch.day = `${dayFormattedSplitted[1]} ${dayNumber}${ordinal}`;
+                const day = `${dayFormattedSplitted[1]} ${dayNumber}${ordinal}`;
+                console.log();
             }
 
             repetitionBatch.conjugationGrids = conjugationGrids.filter(conjugationGrid => conjugationGrid.batch === repetitionBatch.id);
@@ -81,22 +83,35 @@ export function ConjugationService(){
 
         repetitionBatches.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        const repetitionBatchesByDays = [];
+        const test0 = Object.groupBy(repetitionBatches, ({ month }) => month);
+        const test = Object.entries(Object.groupBy(repetitionBatches, ({ month }) => month));
+
+        /* const repetitionBatchesByDays = [];
         Object.entries(Object.groupBy(repetitionBatches, ({date}) => date)).forEach(repetitionsByDay => {
             repetitionBatchesByDays.push({
                 day: repetitionsByDay[0],
                 batches: repetitionsByDay[1],
-                month: new Date(repetitionsByDay[0] + " 00:00:00").toLocaleString('default', { month: 'long' })
+                month: repetitionsByDay[1].month
             })
-        })
+        }) */
 
-        const repetitionBatchesByMonths = [];
+        /* const repetitionBatchesByMonths = [];
         Object.entries(Object.groupBy(repetitionBatchesByDays, ({month}) => month)).forEach(repetitionsByMonth => {
             repetitionBatchesByMonths.push({
                 month: repetitionsByMonth[0],
                 days: repetitionsByMonth[1]
             })
-        })
+        }) */
+
+
+        const repetitionBatchesByMonths = Object.entries(Object.groupBy(repetitionBatches, ({ month }) => month)).map(([month, batchesByMonth]) => ({
+            month, // Convert month string to number
+            days: Object.entries(Object.groupBy(batchesByMonth, ({ day }) => day)).map(([day, batchesByDay]) => ({
+                day, // Convert day string to number
+                batches: batchesByDay,
+            })),
+        }));
+
 
         return repetitionBatchesByMonths;
     }
@@ -107,17 +122,14 @@ export function ConjugationService(){
 
         conjugationGridsData.forEach(conjugationGrid => {
 
-            const verb = GetVerb(conjugationGrid.verb);
-
             const filteredConjugationsData = GetConjugationsByGrid(conjugationGrid.id);
-        
-            const conjugations = TransformConjugations(filteredConjugationsData);
-        
+            
             conjugationGridList.push({
               id: conjugationGrid.id,
               batch: conjugationGrid.batch,
-              verb: verb,
-              conjugations: conjugations
+              verb: GetVerb(conjugationGrid.verb),
+              tense: GetTense(conjugationGrid.tense),
+              conjugations: TransformConjugations(filteredConjugationsData)
             })
         
           })

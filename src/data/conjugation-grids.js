@@ -19,7 +19,7 @@ const conjugationGrids = [
     },
     {
         "id": 3,
-        "tense": 0,
+        "tense": 1,
         "verb": 2,
         "batch": 4
     }
