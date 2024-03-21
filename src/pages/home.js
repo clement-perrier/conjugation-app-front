@@ -8,7 +8,6 @@ import {
     AccordionBody,
   } from "@material-tailwind/react";
   
-
 export default function Home (){
 
     const {repetitionDates, setRepetitionDates} = useContext(RepetitionDatesContext);
