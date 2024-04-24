@@ -59,7 +59,7 @@ export default function Home (){
 
                 </div>
                     
-                <Link to="/summary" className='w-1/2'>
+                <Link to="/new-set" className='w-1/2'>
                     <Button className='w-full'>New repetition set</Button>
                 </Link>
                 
