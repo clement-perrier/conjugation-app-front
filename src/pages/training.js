@@ -1,7 +1,7 @@
 import {  useState } from "react"
-import HomeButton from '../components/HomeButton/home-button';
+import HomeButton from '../components/HomeButton';
 import { Link } from "react-router-dom";
-import { ConjugationService } from '../services/conjugation-services';
+import { ConjugationService } from '../services/conjugationService';
 
 export default function Training() {
 

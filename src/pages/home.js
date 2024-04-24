@@ -1,19 +1,43 @@
 import {Link} from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { RepetitionDatesContext } from '../contexts/repetition-dates-context';
 import { Button, Badge } from "@material-tailwind/react";
-import {
-    Accordion,
-    AccordionHeader,
-    AccordionBody,
-  } from "@material-tailwind/react";
+import Month from '../components/Month';
+import { GetAllTensesService } from '../services/conjugationService';
   
 export default function Home (){
 
     const {repetitionDates, setRepetitionDates} = useContext(RepetitionDatesContext);
 
+    const [tenseList, setTenseList] = useState(null);
+
+    async function initiateTenseList() {
+        try {
+            const newTenseList =  await GetAllTensesService();
+            setTenseList(newTenseList);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    useEffect(() => {
+        initiateTenseList();
+    }, []);
+
+    useEffect(() => {
+        if (tenseList) {
+            console.log(tenseList);
+        }
+    }, [tenseList]);  // Cette ligne s'assure que le useEffect s'exécute chaque fois que tenseList change
+
+
     return(
         <>
+            {/* <div>
+                {tenseList ? tenseList.map(tense => (
+                    <div key={tense.id}>{tense.name}</div>
+                )) : <p>Loading tenses...</p>}
+            </div> */}
             {
                 repetitionDates.length > 0 
                 ? repetitionDates.map((month, index) => 
@@ -23,79 +47,23 @@ export default function Home (){
             }
 
             {/* <Button className='' onClick={() => setRepetitionDates([])}>test</Button> */}
-            <div className="text-center">
-                <Badge color="red" content='5'>
-                    <Link to="/summary">
-                        <Button>Start Today Repetition(s)</Button>
-                    </Link>
-                </Badge>
+            <div className="mt-20 items-center flex flex-col gap-5">
+                
+                <div className='badge-button w-1/2'>
+
+                    <Badge color="red" content='5'>
+                        <Link to="/summary" className='w-full'>
+                            <Button className='w-full'>Start today repetition(s)</Button>
+                        </Link>
+                    </Badge>
+
+                </div>
+                    
+                <Link to="/summary" className='w-1/2'>
+                    <Button className='w-full'>New repetition set</Button>
+                </Link>
+                
             </div>
         </>
     )
-}
-
-export function Month({month}) {
-
-    return (
-        <div className='mb-8'>
-            <p className='text-xl font-semibold text-center'>{month.month}</p>
-            {
-                month.days.map((day,index) =>
-                    <Day key={index} day={day}/>
-                )
-            }
-        </div>
-    )
-    
-}
-
-export function Day({day}) {
-
-    const [open, setOpen] = useState(0);
-    const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
-    return (
-        <>
-            <Accordion open={open === 1}>
-                <AccordionHeader className='text-lg font-medium' onClick={() => handleOpen(1)}>{day.day}</AccordionHeader>
-                <AccordionBody>
-                {    
-                    day.batches.map((batch,index) =>
-                        <Batch key={index} batch={batch}/>
-                    )
-                }
-                </AccordionBody>
-            </Accordion>
-        </>
-    )
-    
-}
-
-export function Batch({batch}) {
-
-    return (
-        <div className='mb-4'>
-            <p className='text-base font-medium'>Day {batch.day_number}</p>
-            {
-                batch.conjugationGrids.map((conjugationGrid,index) =>
-                    <ConjugationGrid key={index} conjugationGrid={conjugationGrid}/>
-                )
-            }
-        </div>
-    )
-    
-}
-
-export function ConjugationGrid({conjugationGrid}) {
-
-    return (
-        <>
-            <p className='text-base uppercase'>
-                {conjugationGrid.verb}
-                <span className="lowercase"> in </span>
-                {conjugationGrid.tense}
-            </p>
-        </>
-    )
-    
 }

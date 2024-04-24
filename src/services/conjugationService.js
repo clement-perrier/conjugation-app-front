@@ -1,10 +1,21 @@
 import conjugationGridsData from '../data/conjugation-grids.js'
-    import verbsData from '../data/verbs.json';
-    import tensesData from '../data/tenses.json';
-    import conjugationsData from '../data/conjugations.json';
-    import pronounsData from '../data/pronouns.json';
-    import ShuffleArray from '../utils/shuffle';
-    import repetitionBatchesData from '../data/repetition-batches.js';
+import verbsData from '../data/verbs.json';
+import tensesData from '../data/tenses.json';
+import conjugationsData from '../data/conjugations.json';
+import pronounsData from '../data/pronouns.json';
+import ShuffleArray from '../utils/shuffle.js';
+import repetitionBatchesData from '../data/repetition-batches.js';
+
+import { FetchAllTenses } from './apiService';
+
+    export async function GetAllTensesService(){
+        try {
+            const result = await FetchAllTenses();
+            return result.data;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
     export function ConjugationService(){
 

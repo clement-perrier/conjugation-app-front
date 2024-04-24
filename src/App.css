@@ -10,3 +10,7 @@
 .btn-blue:hover {
   @apply bg-blue-700;
 }
+
+.badge-button .relative.inline-flex {
+  width: 100%;
+}

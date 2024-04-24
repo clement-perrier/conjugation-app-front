@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import HomeButton from '../components/HomeButton/home-button';
+import HomeButton from '../components/HomeButton';
 import { useContext } from 'react';
 import {ConjugationGridListContext} from '../contexts/conjugation-grid-list-context';
 
