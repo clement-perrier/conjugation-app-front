@@ -1,6 +1,6 @@
 import { useState } from "react";
-import RepetitionBatch from "./RepetitionBatch";
 import { Accordion, AccordionBody, AccordionHeader } from "@material-tailwind/react";
+import RepetitionSet from "./RepetitionSet";
 
 export default function Day({day}) {
 
@@ -13,8 +13,8 @@ export default function Day({day}) {
                 <AccordionHeader className='text-lg font-medium' onClick={() => handleOpen(1)}>{day.day}</AccordionHeader>
                 <AccordionBody>
                 {    
-                    day.batches.map((batch,index) =>
-                        <RepetitionBatch key={index} batch={batch}/>
+                    day.batches.map((repetitionSet,index) =>
+                        <RepetitionSet key={index} repetitionSet={repetitionSet}/>
                     )
                 }
                 </AccordionBody>

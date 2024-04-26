@@ -4,31 +4,20 @@ import { RepetitionDatesContext } from '../contexts/repetition-dates-context';
 import { Button, Badge } from "@material-tailwind/react";
 import Month from '../components/Month';
 import { GetAllTensesService } from '../services/conjugationService';
-  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 export default function Home (){
 
     const {repetitionDates, setRepetitionDates} = useContext(RepetitionDatesContext);
 
-    const [tenseList, setTenseList] = useState(null);
+    
 
-    async function initiateTenseList() {
-        try {
-            const newTenseList =  await GetAllTensesService();
-            setTenseList(newTenseList);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
-    useEffect(() => {
-        initiateTenseList();
-    }, []);
-
-    useEffect(() => {
+    /* useEffect(() => {
         if (tenseList) {
             console.log(tenseList);
         }
-    }, [tenseList]);  // Cette ligne s'assure que le useEffect s'exécute chaque fois que tenseList change
+    }, [tenseList]);  // Cette ligne s'assure que le useEffect s'exécute chaque fois que tenseList change */
 
 
     return(
@@ -58,12 +47,15 @@ export default function Home (){
                     </Badge>
 
                 </div>
-                    
-                <Link to="/new-set" className='w-1/2'>
-                    <Button className='w-full'>New repetition set</Button>
-                </Link>
                 
             </div>
+
+            <Link to="/new-set" className='fixed right-1/2 translate-x-1/2 bottom-24'>
+                <Button className='w-14 h-14'>
+                    <FontAwesomeIcon icon={faPlus} className=''/>
+                </Button>
+            </Link>
+            
         </>
     )
 }

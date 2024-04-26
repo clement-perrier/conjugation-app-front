@@ -1,6 +1,7 @@
+import BackButton from "../../components/BackButton"
 import NavigationButtons from "../../components/NavigationButtons"
 
-export default function SetMode(){
+export default function NewSet(){
 
     const buttons = [
         {
@@ -17,6 +18,7 @@ export default function SetMode(){
 
     return (
         <>
+            <BackButton link='/' />
             <NavigationButtons buttons={buttons}/>
         </>
     )

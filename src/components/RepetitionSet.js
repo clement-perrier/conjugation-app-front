@@ -1,12 +1,12 @@
 import ConjugationGrid from './ConjugationGrid';
 
-export default function RepetitionBatch({batch}) {
+export default function RepetitionSet({repetitionSet}) {
 
     return (
         <div className='mb-4'>
-            <p className='text-base font-medium'>Day {batch.day_number}</p>
+            <p className='text-base font-medium'>Day {repetitionSet.day_number}</p>
             {
-                batch.conjugationGrids.map((conjugationGrid,index) =>
+                repetitionSet.conjugationGrids.map((conjugationGrid,index) =>
                     <ConjugationGrid key={index} conjugationGrid={conjugationGrid}/>
                 )
             }
