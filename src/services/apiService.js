@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const API_BASE_URL = 'http://localhost:8080';
 
@@ -13,3 +14,11 @@ export const FetchAllTenses = async () => {
         throw(error);
     }
 }
+
+export const fetchTenses = createAsyncThunk(
+    'tenses/fetchTenses',
+    async () => {
+        const response = await apiService.get('tense/list/all');
+        return response.data;
+    }
+);
