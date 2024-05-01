@@ -7,7 +7,7 @@ export default function BackButton ({link}){
 
     return (
         <>
-            <div className="fixed top-0 left-0 p-5">
+            <div className="">
                 <Link to={link}>
                     <Button className="flex justify-center px-4 py-4">
                         <FontAwesomeIcon icon={faAngleLeft} className="font-bold size-4"/>

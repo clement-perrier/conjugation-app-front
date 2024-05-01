@@ -63,8 +63,8 @@ export default function App() {
   }, []); */
 
   return (
-      <div className="App h-full flex flex-col">
-        <div className="p-5 h-full flex-1">
+      <div className="App h-full flex">
+        <div className="p-5 h-full flex flex-1 flex-col">
           <ThemeProvider>
             <RepetitionDatesContext.Provider value={{repetitionDates, setRepetitionDates}}>
               <ConjugationGridListContext.Provider value={conjugationGridList}>

@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { RepetitionDatesContext } from '../contexts/repetition-dates-context';
 import { Button, Badge } from "@material-tailwind/react";
 import Month from '../components/Month';
@@ -11,8 +12,6 @@ export default function Home (){
 
     const {repetitionDates, setRepetitionDates} = useContext(RepetitionDatesContext);
 
-    
-
     /* useEffect(() => {
         if (tenseList) {
             console.log(tenseList);
@@ -22,11 +21,6 @@ export default function Home (){
 
     return(
         <>
-            {/* <div>
-                {tenseList ? tenseList.map(tense => (
-                    <div key={tense.id}>{tense.name}</div>
-                )) : <p>Loading tenses...</p>}
-            </div> */}
             {
                 repetitionDates.length > 0 
                 ? repetitionDates.map((month, index) => 
