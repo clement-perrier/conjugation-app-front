@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTenses } from "../services/apiService";
 
-const tenseSlice = createSlice({
-    name: 'tenses',
+export const TenseListSlice = createSlice({
+    name: 'tenseList',
     initialState: {
         data: [],
         loading: false,
@@ -27,4 +27,16 @@ const tenseSlice = createSlice({
     }
 });
 
-export default tenseSlice.reducer;
+export const SelectedTenseSlice = createSlice({
+    name: 'selectedTense',
+    initialState: {
+        value: {}
+    },
+    reducers: {
+        update: (state, action) => {
+            state.value = action.payload
+        }
+    }
+});
+
+export const { update } = SelectedTenseSlice.actions;

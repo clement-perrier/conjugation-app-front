@@ -43,7 +43,7 @@ export default function App() {
   }
 
   const dispatch = useDispatch();
-  const tenses = useSelector(state => state.tenses.data)
+  const tenses = useSelector(state => state.tenseList.data)
 
   useEffect(() => {
       // initiateTenseList();
@@ -64,7 +64,7 @@ export default function App() {
 
   return (
       <div className="App h-full flex">
-        <div className="p-5 h-full flex flex-1 flex-col">
+        <div className="px-5 pt-5 pb-16 h-full flex flex-1 flex-col">
           <ThemeProvider>
             <RepetitionDatesContext.Provider value={{repetitionDates, setRepetitionDates}}>
               <ConjugationGridListContext.Provider value={conjugationGridList}>
