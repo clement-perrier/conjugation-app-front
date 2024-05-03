@@ -17,7 +17,7 @@ import { GetAllTensesService } from './services/conjugationService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTenses } from './services/apiService';
+import { fetchTenses, fetchVerbs } from './services/apiService';
 
 export default function App() {
 
@@ -31,29 +31,20 @@ export default function App() {
   
   const [repetitionDates, setRepetitionDates] = useState(initialRepetitionDates);
 
-  const [tenseList, setTenseList] = useState(null);
-
-  async function initiateTenseList() {
-      try {
-          const newTenseList =  await GetAllTensesService();
-          setTenseList(newTenseList);
-      } catch (error) {
-          console.error('Error fetching data:', error);
-      }
-  }
 
   const dispatch = useDispatch();
-  const tenses = useSelector(state => state.tenseList.data)
+  // const verbs = useSelector(state => state.verbList.data)
 
   useEffect(() => {
       // initiateTenseList();
       dispatch(fetchTenses());
+      dispatch(fetchVerbs());
   }, [dispatch]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     // initiateTenseList();
-    console.log(tenses);
-  }, [tenses]);
+    console.log(verbs);
+  }, [verbs]); */
 
   /* useEffect(() => {
     fetch('http://localhost:8080/greeting?name=Clement')

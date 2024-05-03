@@ -18,7 +18,15 @@ export const FetchAllTenses = async () => {
 export const fetchTenses = createAsyncThunk(
     'tenses/fetchTenses',
     async () => {
-        const response = await apiService.get('tense/list/all');
+        const response = await apiService.get('tense/list/language-id/1');
         return response.data;
     }
 );
+
+export const fetchVerbs = createAsyncThunk(
+    'verbs/fetchVerbs',
+    async () => {
+        const response = await apiService.get('verb/list/language-id/1');
+        return response.data;
+    }
+)
