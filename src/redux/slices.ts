@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTenses, fetchVerbs } from "../services/apiService";
+import { asyncListInitialState, listInitialState, objectInitialState } from "./states";
 
 export const TenseListSlice = createSlice({
     name: 'tenseList',
-    initialState: {
-        data: [],
-        loading: false,
-        error: null
-    },
+    initialState: asyncListInitialState,
     reducers: {
         // Reducers synchrones ici si nécessaire
     },
@@ -29,11 +26,7 @@ export const TenseListSlice = createSlice({
 
 export const VerbListSlice = createSlice({
     name: 'verbList',
-    initialState: {
-        data: [],
-        loading: false, 
-        error: null
-    },
+    initialState: asyncListInitialState,
     reducers: {
         // Reducers synchrones ici si nécessaire
         updateVerbList: (state, action) => {
@@ -60,9 +53,7 @@ export const { updateVerbList } = VerbListSlice.actions;
 
 export const SelectedTenseSlice = createSlice({
     name: 'selectedTense',
-    initialState: {
-        value: {}
-    },
+    initialState: objectInitialState,
     reducers: {
         updateSelectedTense: (state, action) => {
             state.value = action.payload
@@ -74,9 +65,7 @@ export const { updateSelectedTense } = SelectedTenseSlice.actions;
 
 export const SelectedVerbListSlice = createSlice({
     name: 'selectedVerbList',
-    initialState: {
-        data: []
-    },
+    initialState: listInitialState,
     reducers: {
         updateSelectedVerbList: (state, action) => {
             state.data.push(action.payload);

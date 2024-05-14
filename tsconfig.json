@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "module": "esnext",
+      "target": "es6",
+      "moduleResolution": "node",
+      "jsx": "react-jsx",
+      "baseUrl": "./",
+      "resolveJsonModule": true,
+      "paths": {
+        "*": ["src/*"]
+      },
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true
+    },
+    "include": [
+      "src/**/*"
+    ]
+  }
+  

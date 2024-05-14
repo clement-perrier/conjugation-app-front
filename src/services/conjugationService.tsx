@@ -1,4 +1,4 @@
-import conjugationGridsData from '../data/conjugation-grids.js'
+/* import conjugationGridsData from '../data/conjugation-grids.js'
 import verbsData from '../data/verbs.json';
 import tensesData from '../data/tenses.json';
 import conjugationsData from '../data/conjugations.json';
@@ -6,7 +6,7 @@ import pronounsData from '../data/pronouns.json';
 import ShuffleArray from '../utils/shuffle.js';
 import repetitionBatchesData from '../data/repetition-batches.js';
 
-import { FetchAllTenses } from './apiService';
+import { FetchAllTenses } from './apiService.js';
 
     export async function GetAllTensesService(){
         try {
@@ -155,4 +155,4 @@ import { FetchAllTenses } from './apiService';
             GetRepetitionDates: GetRepetitionDates
         }
 
-    }
+    } */

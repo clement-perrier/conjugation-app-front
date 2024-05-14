@@ -1,9 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { ConjugationGridListContext } from "./contexts/conjugation-grid-list-context";
-import { RepetitionDatesContext } from "./contexts/repetition-dates-context";
-import { ConjugationService } from "./services/conjugationService";
-import { ThemeProvider, Button } from "@material-tailwind/react";
+import { ThemeProvider } from "@material-tailwind/react";
+import {Button} from "@material-tailwind/react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Summary from "./pages/summary";
@@ -13,39 +11,26 @@ import TenseSelection from "./pages/new-set/custom-set/TenseSelection";
 import VerbSelection from "./pages/new-set/custom-set/VerbSelection";
 import SetProgress from "./pages/new-set/custom-set/SetProgress";
 import NewSet from "./pages/new-set/NewSet";
-import { GetAllTensesService } from "./services/conjugationService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTenses, fetchVerbs } from "./services/apiService";
+import { AppDispatch } from "redux/store";
 
 export default function App() {
-  const conjugationService = ConjugationService();
 
-  const initialConjugationGridList = conjugationService.GetConjugationGrids();
-
-  const [conjugationGridList, setConjugationGridList] = useState(
-    initialConjugationGridList
-  );
-
-  const initialRepetitionDates = conjugationService.GetRepetitionDates();
-
-  const [repetitionDates, setRepetitionDates] = useState(
-    initialRepetitionDates
-  );
-
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch<AppDispatch>();
   // const verbs = useSelector(state => state.verbList.data)
 
   useEffect(() => {
     // initiateTenseList();
-    dispatch(fetchTenses());
-    dispatch(fetchVerbs());
-  }, [dispatch]);
+    /* dispatch(fetchTenses());
+    dispatch(fetchVerbs()); */
+  }, []);
 
   /*   useEffect(() => {
     // initiateTenseList();
-    console.log(verbs);
+    console.log(verbs); 
   }, [verbs]); */
 
   /* useEffect(() => {
@@ -59,13 +44,9 @@ export default function App() {
     <div className="App h-full flex">
       <div className="px-5 pt-5 pb-20 h-full flex flex-1 flex-col">
         <ThemeProvider>
-          <RepetitionDatesContext.Provider
-            value={{ repetitionDates, setRepetitionDates }}
-          >
-            <ConjugationGridListContext.Provider value={conjugationGridList}>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/summary" element={<Summary />}></Route>
+                {/* <Route path="/summary" element={<Summary />}></Route>
                 <Route path="/training" element={<Training />}></Route>
                 <Route path="/new-set" element={<NewSet />}></Route>
                 <Route
@@ -83,28 +64,26 @@ export default function App() {
                 <Route
                   path="/new-set/custom-set/set-progress"
                   element={<SetProgress />}
-                ></Route>
+                ></Route> */}
               </Routes>
-            </ConjugationGridListContext.Provider>
-          </RepetitionDatesContext.Provider>
         </ThemeProvider>
       </div>
 
       <footer className="fixed bottom-0 w-full flex flex-row gap-2 p-5 bg-white">
         <Link to="/" className="flex-1">
-          <Button className="w-full">
+          <button className="w-full">
             <FontAwesomeIcon icon={faHouse} />
-          </Button>
+          </button>
         </Link>
         <Link to="/" className="flex-1">
-          <Button className="w-full">
+          <button className="w-full">
             <FontAwesomeIcon icon={faUser} />
-          </Button>
+          </button>
         </Link>
         <Link to="/" className="flex-1">
-          <Button className="w-full">
+          <button className="w-full">
             <FontAwesomeIcon icon={faGear} />
-          </Button>
+          </button>
         </Link>
       </footer>
     </div>

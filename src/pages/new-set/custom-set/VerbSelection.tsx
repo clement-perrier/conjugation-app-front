@@ -1,31 +1,35 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSelectedVerbList } from "../../../redux/slices";
 import BackButton from "../../../components/BackButton";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Input as TInput } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { RootStateInterface } from "redux/interfaces";
 
 export default function VerbSelection() {
-  const dispatch = useDispatch();
 
-  const selectedTense = useSelector((state) => state.selectedTense.value);
-  const selectedVerbList = useSelector((state) => state.selectedVerbList.data);
-  const verbList = useSelector((state) => state.verbList.data);
+  const Input = TInput as any;
+  /* const dispatch = useDispatch();
+
+  const selectedTense = useSelector((state: RootStateInterface) => state.selectedTense.value);
+  const selectedVerbList = useSelector((state: RootStateInterface) => state.selectedVerbList.data);
+  const verbList = useSelector((state: RootStateInterface) => state.verbList.data); */
 
   const [unselectedVerbList, setUnselectedVerbList] = useState([]);
   const [displayedVerbList, setDisplayedVerbList] = useState([]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     setUnselectedVerbList([...verbList]);
     setDisplayedVerbList([...verbList]);
-  }, [verbList]);
+  }, [verbList]); */
 
   return (
     <>
       <BackButton link="/new-set/custom-set/tense-selection" />
-      <h1 className="text-center my-4 font-medium">{selectedTense.name}</h1>
+      {/* <h1 className="text-center my-4 font-medium">{selectedTense.name}</h1> */}
 
       <Input
         label="Verb search"
@@ -41,7 +45,7 @@ export default function VerbSelection() {
       />
 
       <div className="min-h-10 mt-5 mb-5">
-        {selectedVerbList.map((verb) => (
+       {/*  {selectedVerbList.map((verb) => (
           <button
             key={verb.id}
             className="rounded-lg py-1 px-2 mr-2 mb-2 bg-gray-300 relative"
@@ -52,14 +56,14 @@ export default function VerbSelection() {
               className="absolute top-1 right-2 text-xs text-gray-700"
             ></FontAwesomeIcon>
           </button>
-        ))}
+        ))} */}
       </div>
 
       <div className="flex flex-col overflow-scroll">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-5 sm:gap-y-8 md:gap-y-14 lg:gap-y-18 gap-x-3 auto-rows-fr">
-          {displayedVerbList ? (
+          {/* {displayedVerbList ? (
             displayedVerbList.map((verb) => (
-              <Button
+              <button
                 key={verb.id}
                 className="w-full h-14 text-xs"
                 onClick={() => {
@@ -76,16 +80,16 @@ export default function VerbSelection() {
                 }}
               >
                 {verb.name}
-              </Button>
+              </button>
             ))
           ) : (
             <div>loading...</div>
-          )}
+          )} */}
         </div>
       </div>
 
       <Link className="text-center" to={"/new-set/custom-set/set-progress"}>
-        <Button>Valider</Button>
+        <button>Valider</button>
       </Link>
     </>
   );
