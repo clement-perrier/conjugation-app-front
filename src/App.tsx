@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTenses, fetchVerbs } from "./services/apiService";
-import { AppDispatch } from "redux/store";
+import { AppDispatch } from "state/store";
 import menuItems from "data/menuItems";
 import Button from "components/Button";
 
@@ -68,24 +68,9 @@ export default function App() {
       </div>
 
       <footer className="fixed bottom-0 w-full flex flex-row gap-2 p-5 bg-white">
-        {menuItems.map(item => 
-          <Button icon={item.icon} buttonClassName="w-full" link={item.path} linkClassName="flex-1" />
+        {menuItems.map((item, index) => 
+          <Button key={index} icon={item.icon} buttonClassName="w-full" link={item.path} linkClassName="flex-1" />
         )}
-        {/* <Link to="/" className="flex-1">
-          <button className="w-full">
-            <FontAwesomeIcon icon={faHouse} />
-          </button>
-        </Link>
-        <Link to="/" className="flex-1">
-          <button className="w-full">
-            <FontAwesomeIcon icon={faUser} />
-          </button>
-        </Link>
-        <Link to="/" className="flex-1">
-          <button className="w-full">
-            <FontAwesomeIcon icon={faGear} />
-          </button>
-        </Link> */}
       </footer>
     </div>
   );

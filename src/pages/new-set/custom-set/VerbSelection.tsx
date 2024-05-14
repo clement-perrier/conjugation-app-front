@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSelectedVerbList } from "../../../redux/slices";
-import BackButton from "../../../components/BackButton";
+import { addSelectedVerb, removeSelectedVerb } from "state/slices";
+import BackButton from "components/BackButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { RootStateInterface } from "redux/interfaces";
-import Button from "../../../components/Button";
+import { RootStateInterface } from "state/interfaces";
+import Button from "components/Button";
 
 export default function VerbSelection() {
 
@@ -23,6 +22,11 @@ export default function VerbSelection() {
     setUnselectedVerbList([...verbList]);
     setDisplayedVerbList([...verbList]);
   }, [verbList]);
+  
+  useEffect(() => {
+    console.log(selectedVerbList);
+    console.log(displayedVerbList)
+  }, [selectedVerbList]);
 
   return (
     <>
@@ -48,6 +52,18 @@ export default function VerbSelection() {
           <button
             key={verb.id}
             className="rounded-lg py-1 px-2 mr-2 mb-2 bg-gray-300 relative"
+            onClick={() => {
+              console.log('coucou')
+              dispatch(removeSelectedVerb(verb))
+              setDisplayedVerbList([
+                verb,
+                ...displayedVerbList,
+              ])
+              setUnselectedVerbList([
+                verb,
+                ...unselectedVerbList
+              ])
+            }}
           >
             <div className="mr-4">{verb.name}</div>
             <FontAwesomeIcon
@@ -67,15 +83,15 @@ export default function VerbSelection() {
                 label={verb.name}
                 buttonClassName="w-full h-14"
                 onClick={() => {
-                  dispatch(updateSelectedVerbList(verb));
+                  dispatch(addSelectedVerb(verb));
                   // Updating the displayed list as the one clicked will disapear from the list
                   setDisplayedVerbList(
-                    displayedVerbList.filter((item) => item.id !== verb.id)
+                    displayedVerbList.filter(item => item.id !== verb.id)
                   );
                   // Updating the unselected list as the text filter will not
                   // take into account the one clicked and removed anymore
                   setUnselectedVerbList(
-                    unselectedVerbList.filter((item) => item.id !== verb.id)
+                    unselectedVerbList.filter(item => item.id !== verb.id)
                   );
                 }}
               />

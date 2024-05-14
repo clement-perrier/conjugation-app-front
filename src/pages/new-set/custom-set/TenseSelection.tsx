@@ -1,10 +1,8 @@
-import BackButton from "../../../components/BackButton";
+import BackButton from "components/BackButton";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSelectedTense } from "../../../redux/slices";
-import React from "react";
-import { Link } from "react-router-dom";
+import { updateSelectedTense } from "state/slices";
 import Button from "components/Button";
-import { RootStateInterface } from "redux/interfaces";
+import { RootStateInterface } from "state/interfaces";
 
 export default function TenseSelection() {
   const tenseList = useSelector((state: RootStateInterface) => state.tenseList.data);

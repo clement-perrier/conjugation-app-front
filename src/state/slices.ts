@@ -67,10 +67,13 @@ export const SelectedVerbListSlice = createSlice({
     name: 'selectedVerbList',
     initialState: listInitialState,
     reducers: {
-        updateSelectedVerbList: (state, action) => {
+        addSelectedVerb: (state, action) => {
             state.data.push(action.payload);
+        },
+        removeSelectedVerb: (state, action) => {
+            state.data = state.data.filter(verb => verb.id !== action.payload.id)
         }
     }
 });
 
-export const { updateSelectedVerbList } = SelectedVerbListSlice.actions;
+export const { addSelectedVerb, removeSelectedVerb } = SelectedVerbListSlice.actions;

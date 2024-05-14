@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import React from "react";
-import { RootStateInterface } from "../../../redux/interfaces";
+import { RootStateInterface } from "../../../state/interfaces";
 
 export default function SetProgress() {
 

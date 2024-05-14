@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
 
 export default function NavigationButtons({ buttons }) {
   const buttonsElements = buttons.map((button, index) => (
