@@ -1,6 +1,6 @@
 import BackButton from "../../components/BackButton"
 import NavigationButtons from "../../components/NavigationButtons"
-import React from "react"
+import Button from "components/Button"
 
 export default function NewSet(){
 
@@ -20,7 +20,20 @@ export default function NewSet(){
     return (
         <>
             <BackButton link='/' />
-            <NavigationButtons buttons={buttons}/>
+            <div className="flex flex-col gap-16 h-full justify-center">
+            {    
+                buttons.map((button, index) => 
+                    <div
+                        key={index}
+                        className="flex flex-col gap-5 w-full items-center text-center"
+                    >
+                        <Button label={button.title} buttonClassName="w-1/3" link={button.link} linkClassName="w-full"/>
+                        <p className="w-3/4">{button.description}</p>
+                    </div>
+                )
+            }
+            </div>
+        
         </>
     )
 }

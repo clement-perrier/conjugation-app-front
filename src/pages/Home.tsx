@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Button, Badge } from "@material-tailwind/react";
-
+import Button from "components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
+  
+  const newSetButtonContent = <FontAwesomeIcon icon={faPlus} className="" />;
   /* const { repetitionDates, setRepetitionDates } = useContext(
     RepetitionDatesContext
   ); */
@@ -34,11 +35,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Link to="/new-set" className="fixed right-1/2 translate-x-1/2 bottom-24">
-        <button className="w-14 h-14">
-          <FontAwesomeIcon icon={faPlus} className="" />
-        </button>
-      </Link>
+      <Button icon={faPlus} buttonClassName="w-14 h-14" link="/new-set" linkClassName="fixed right-1/2 translate-x-1/2 bottom-24"/>
     </>
   );
 }

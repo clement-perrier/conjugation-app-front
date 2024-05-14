@@ -4,16 +4,16 @@
       "target": "es6",
       "moduleResolution": "node",
       "jsx": "react-jsx",
-      "baseUrl": "./",
+      "baseUrl": "./src",
       "resolveJsonModule": true,
-      "paths": {
+      /* "paths": {
         "*": ["src/*"]
-      },
+      }, */
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true
     },
     "include": [
       "src/**/*"
     ]
-  }
+}
   

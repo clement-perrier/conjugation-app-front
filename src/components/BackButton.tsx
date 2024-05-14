@@ -1,18 +1,12 @@
-import { Button } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import Button from "./Button";
 
 export default function BackButton({ link }) {
+  
   return (
-    <>
-      <div className="">
-        <Link to={link}>
-          <button className="flex justify-center px-4 py-4">
-            <FontAwesomeIcon icon={faAngleLeft} className="font-bold size-4" />
-          </button>
-        </Link>
-      </div>
-    </>
+
+    <Button icon={faAngleLeft} buttonClassName="flex justify-center px-4 py-4" link={link}/>
+
   );
 }
