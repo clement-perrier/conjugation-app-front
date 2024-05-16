@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { RootStateInterface } from "state/interfaces";
 import Button from "components/Button";
+import { memo } from "react";
+import {debounce} from "lodash";
 
-export default function VerbSelection() {
-
+const VerbSelection =  memo(function VerbSelection() {
+    
   const dispatch = useDispatch();
 
   const selectedTense = useSelector((state: RootStateInterface) => state.selectedTense.value);
@@ -19,14 +21,18 @@ export default function VerbSelection() {
   const [displayedVerbList, setDisplayedVerbList] = useState([]);
 
   useEffect(() => {
-    setUnselectedVerbList([...verbList]);
-    setDisplayedVerbList([...verbList]);
-  }, [verbList]);
-  
-  useEffect(() => {
-    console.log(selectedVerbList);
-    console.log(displayedVerbList)
+    const filteredList = verbList.filter(verb => !selectedVerbList.some(selectedVerb => selectedVerb.id === verb.id));
+    setUnselectedVerbList(filteredList);
+    setDisplayedVerbList(filteredList);
   }, [selectedVerbList]);
+
+  const debounceSearch = debounce((searchTerm) => {
+    setDisplayedVerbList(
+      unselectedVerbList.filter((verb) =>
+        verb.name.includes(searchTerm.toLowerCase())
+      )
+    );
+  }, 300);
 
   return (
     <>
@@ -39,11 +45,7 @@ export default function VerbSelection() {
           name="myInput" 
           onChange={(e) =>
             // Updating the displayed list filtering the unselected list
-            setDisplayedVerbList(
-              unselectedVerbList.filter((verb) =>
-                verb.name.includes(e.target.value.toLowerCase())
-              )
-            )
+            debounceSearch(e.target.value)
           } />
       </label>
 
@@ -53,7 +55,6 @@ export default function VerbSelection() {
             key={verb.id}
             className="rounded-lg py-1 px-2 mr-2 mb-2 bg-gray-300 relative"
             onClick={() => {
-              console.log('coucou')
               dispatch(removeSelectedVerb(verb))
               setDisplayedVerbList([
                 verb,
@@ -85,14 +86,14 @@ export default function VerbSelection() {
                 onClick={() => {
                   dispatch(addSelectedVerb(verb));
                   // Updating the displayed list as the one clicked will disapear from the list
-                  setDisplayedVerbList(
+                  /* setDisplayedVerbList(
                     displayedVerbList.filter(item => item.id !== verb.id)
                   );
                   // Updating the unselected list as the text filter will not
                   // take into account the one clicked and removed anymore
                   setUnselectedVerbList(
                     unselectedVerbList.filter(item => item.id !== verb.id)
-                  );
+                  ); */
                 }}
               />
                 /* {verb.name}
@@ -108,4 +109,6 @@ export default function VerbSelection() {
       
     </>
   );
-}
+})
+
+export default VerbSelection;
